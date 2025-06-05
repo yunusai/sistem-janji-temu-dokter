@@ -9,13 +9,14 @@ class Periksa extends Model
     protected $table = 'periksas';
     protected $fillable = [
         'id_janji_periksa',
-        'diagnosa',
-        'tindakan',
-        'resep',
-        'biaya',
+        'tgl_periksa',
+        'catatan',
+        'biaya_periksa',
     ];
 
-    public $timestamps = false;
+    protected $casts = [
+        'tgl_periksa' => 'datetime',
+    ];
 
     public function janjiPeriksa()
     {

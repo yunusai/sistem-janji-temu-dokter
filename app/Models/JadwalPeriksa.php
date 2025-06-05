@@ -15,15 +15,8 @@ class JadwalPeriksa extends Model
         'status',
     ];
 
-    public $timestamps = false;
-
     public function dokter()
     {
         return $this->belongsTo(User::class, 'id_dokter');
-    }
-
-    public function pasien()
-    {
-        return $this->belongsTo(User::class, 'id_pasien');
     }
 }

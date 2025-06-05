@@ -8,27 +8,24 @@ class JanjiPeriksa extends Model
 {
     protected $table = 'janji_periksas';
     protected $fillable = [
-        'id_dokter',
+        'id_jadwal_periksa',
         'id_pasien',
-        'tanggal_periksa',
-        'jam_periksa',
-        'status',
+        'keluhan',
+        'no_antrian',
     ];
-
-    public $timestamps = false;
-
-    public function dokter()
-    {
-        return $this->belongsTo(User::class, 'id_dokter');
-    }
 
     public function pasien()
     {
-        return $this->belongsTo(User::class, 'id_pasien');  
+        return $this->belongsTo(User::class, 'id_pasien');
     }
-    
+
+    public function jadwalPeriksa()
+    {
+        return $this->belongsTo(JadwalPeriksa::class, 'id_jadwal_periksa');
+    }
+
     public function periksa()
     {
-        return $this->hasMany(Periksa::class, 'id_janji_periksa');
+        return $this->hasOne(Periksa::class, 'id_janji_periksa');
     }
 }

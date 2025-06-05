@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('janji_periksas', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_dokter')->constrained('users')->onDelete('cascade');
             $table->integer('id_pasien')->constrained('users')->onDelete('cascade');
+            $table->integer('id_jadwal_periksa')->constrained('jadwal_periksas')->onDelete('cascade');
             $table->text('keluhan');
             $table->integer('no_antrian');
+            $table->timestamps();
         });
     }
 

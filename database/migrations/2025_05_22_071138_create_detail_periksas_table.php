@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_periksa')->constrained('periksas')->onDelete('cascade');
             $table->integer('id_obat')->constrained('obats')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

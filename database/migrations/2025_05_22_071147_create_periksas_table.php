@@ -17,6 +17,7 @@ return new class extends Migration
             $table->datetime('tanggal_periksa');
             $table->text('catatan');
             $table->integer('biaya_periksa');
+            $table->timestamps();
         });
     }
 

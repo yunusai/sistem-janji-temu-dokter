@@ -12,8 +12,6 @@ class DetailPeriksa extends Model
         'id_obat',
     ];
 
-    public $timestamps = false;
-
     public function periksa()
     {
         return $this->belongsTo(Periksa::class, 'id_periksa');

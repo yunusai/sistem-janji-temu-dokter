@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\JadwalPeriksa;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dokter\ObatController;
 use App\Http\Controllers\Dokter\JadwalPeriksaController;

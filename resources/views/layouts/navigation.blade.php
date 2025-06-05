@@ -5,9 +5,19 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
+                    @if(Auth::user()->role == 'dokter')
+                        <a href="{{ route('dokter.dashboard') }}">
+                            <x-application-logo class="block h-9 w-auto fill-current text-red-800 dark:text-red-200" />
+                        </a>
+                    @elseif(Auth::user()->role == 'pasien')
+                        <a href="{{ route('pasien.dashboard') }}">
+                            <x-application-logo class="block h-9 w-auto fill-current text-red-800 dark:text-red-200" />
+                        </a>
+                    @else
                     <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-red-800 dark:text-red-200" />
                     </a>
+                    @endif
                 </div>
 
                 <!-- Navigation Links -->
@@ -25,6 +35,9 @@
                      @elseif(Auth::user()->role == 'pasien')
                         <x-nav-link :href="route('pasien.dashboard')" :active="request()->routeIs('pasien.dashboard')">
                             {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('pasien.janji-periksa.index')" :active="request()->routeIs('pasien.janji-periksa.index')">
+                            {{ __('Janji Periksa') }}
                         </x-nav-link>
                      @endif
                 </div>

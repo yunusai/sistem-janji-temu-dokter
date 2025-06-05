@@ -12,7 +12,6 @@ class Obat extends Model
         'kemasan',
         'harga',
     ];
-    public $timestamps = false;
 
     public function detailPeriksa()
     {
