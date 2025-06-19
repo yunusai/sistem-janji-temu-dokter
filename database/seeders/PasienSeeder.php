@@ -18,6 +18,10 @@ class PasienSeeder extends Seeder
             'email' => 'john@example.com',
             'password' => bcrypt('password'),
             'role' => 'pasien',
+            'alamat' => 'Jl. Contoh Alamat No. 1',
+            'no_ktp' => '1234567890123456',
+            'no_hp' => '081234567890',
+            'no_rm' => 'RM001',
         ]);
 
         \App\Models\User::create([
@@ -25,6 +29,10 @@ class PasienSeeder extends Seeder
             'email' => 'jane@example.com',
             'password' => bcrypt('password'),
             'role' => 'pasien',
+            'alamat' => 'Jl. Contoh Alamat No. 2',
+            'no_ktp' => '1234567890123457',
+            'no_hp' => '081234567891',
+            'no_rm' => 'RM002',
         ]);
 
         \App\Models\User::create([
@@ -32,6 +40,10 @@ class PasienSeeder extends Seeder
             'email' => 'alice@example.com',
             'password' => bcrypt('password'),
             'role' => 'pasien',
+            'alamat' => 'Jl. Contoh Alamat No. 3',
+            'no_ktp' => '1234567890123458',
+            'no_hp' => '081234567892',
+            'no_rm' => 'RM003',
         ]);
     }
 }

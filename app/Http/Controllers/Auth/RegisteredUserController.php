@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Poli;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -21,6 +22,17 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         return view('auth.register');
+    }
+
+    /**
+     * Show the registration form for doctors.
+     */
+    public function createDoctor(): View
+    {
+        $polis = Poli::all(); // Ambil semua data poliklinik untuk dropdown
+        return view('auth.register-dokter', with([
+            'polis' => $polis,
+        ]));
     }
 
     /**
@@ -73,5 +85,44 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(route('pasien.dashboard', absolute: false));
+    }
+
+    public function storeDoctor(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'alamat' => ['required', 'string', 'max:255'],
+            'no_hp' => ['required', 'string', 'max:50'],
+            'no_ktp' => ['required', 'string', 'max:255'],
+            'id_poli' => ['required', 'integer'], // Asumsikan id_poli adalah foreign key ke tabel poliklinik
+        ]);
+
+        // Cek apakah dokter dengan no_ktp tersebut sudah ada
+        $existingDoctor = User::where('no_ktp', $request->no_ktp)->first();
+
+        if ($existingDoctor) {
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
+
+        $user = User::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'dokter',
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'no_ktp' => $request->no_ktp,
+            'id_poli' => $request->id_poli, // Asumsikan id_poli diisi dari form
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(route('dokter.dashboard', absolute: false));
     }
 }

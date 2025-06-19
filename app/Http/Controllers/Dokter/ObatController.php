@@ -29,6 +29,22 @@ class ObatController extends Controller
         ]);
     }
 
+    public function restore()
+    {
+        $obats = Obat::onlyTrashed()->get();
+        return view('dokter.obat.restore')->with([
+            'obats' => $obats,
+        ]);
+    }
+
+    public function undelete($id)
+    {
+        $obat = Obat::withTrashed()->find($id);
+        $obat->restore();
+
+        return redirect()->route('dokter.obat.restore')->with('status', 'obat-restored');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
